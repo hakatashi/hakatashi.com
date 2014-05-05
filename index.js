@@ -114,12 +114,12 @@ $(document).ready(function () {
     };
 
     var animation = Raphael.animation({
-        sector: [540, 360, 150, 30, -100, 360]
+        sector: [540, 360, 150, 0, 0, 360]
     }, 1000, 'elastic');
 
     paper.path().attr({
         'stroke-width': 0,
         fill: 'black',
-        sector: [540, 360, 0, 0, 50, 400]
+        sector: [540, 360, 0, 0, 0, 0]
     }).animate(animation.delay(500));
 });
