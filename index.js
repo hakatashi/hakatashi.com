@@ -2,6 +2,10 @@
     return this * (Math.PI / 180);
 }
 
+Number.prototype.mod = function (n) {
+    return ((this % n) + n) % n;
+}
+
 $(document).ready(function () {
     var viewBox = {
         height: 720,
@@ -23,7 +27,7 @@ $(document).ready(function () {
         // * 0 <= angle <= 360
         if (Math.abs(angle) >= 360) angle = 360;
 
-        startingAngle %= 360;
+        startingAngle = startingAngle.mod(360);
 
         if (angle >= 0) {
             var endingAngle = startingAngle + angle;
@@ -39,8 +43,8 @@ $(document).ready(function () {
 
         var outer = {
             start: {
-                x: centerX + outerRadius * Math.cos(startingAngle.toRadians()),
-                y: centerY - outerRadius * Math.sin(startingAngle.toRadians())
+                x: centerX + outerRadius * Math.sin(startingAngle.toRadians()),
+                y: centerY - outerRadius * Math.cos(startingAngle.toRadians())
             },
             top: {
                 x: centerX,
@@ -51,15 +55,15 @@ $(document).ready(function () {
                 y: centerY + outerRadius
             },
             end: {
-                x: centerX + outerRadius * Math.cos(endingAngle.toRadians()),
-                y: centerY - outerRadius * Math.sin(endingAngle.toRadians())
+                x: centerX + outerRadius * Math.sin(endingAngle.toRadians()),
+                y: centerY - outerRadius * Math.cos(endingAngle.toRadians())
             }
         };
 
         var inner = {
             start: {
-                x: centerX + innerRadius * Math.cos(startingAngle.toRadians()),
-                y: centerY - innerRadius * Math.sin(startingAngle.toRadians())
+                x: centerX + innerRadius * Math.sin(startingAngle.toRadians()),
+                y: centerY - innerRadius * Math.cos(startingAngle.toRadians())
             },
             top: {
                 x: centerX,
@@ -70,8 +74,8 @@ $(document).ready(function () {
                 y: centerY + innerRadius
             },
             end: {
-                x: centerX + innerRadius * Math.cos(endingAngle.toRadians()),
-                y: centerY - innerRadius * Math.sin(endingAngle.toRadians())
+                x: centerX + innerRadius * Math.sin(endingAngle.toRadians()),
+                y: centerY - innerRadius * Math.cos(endingAngle.toRadians())
             }
         };
 
@@ -109,9 +113,13 @@ $(document).ready(function () {
         return {path: path};
     };
 
+    var animation = Raphael.animation({
+        sector: [540, 360, 150, 30, -100, 360]
+    }, 1000, 'elastic');
+
     paper.path().attr({
-        stroke: 'black',
-        'stroke-width': 1,
-        sector: [100, 100, 100, 80, 30, -180]
-    });
+        'stroke-width': 0,
+        fill: 'black',
+        sector: [540, 360, 0, 0, 50, 400]
+    }).animate(animation.delay(500));
 });
