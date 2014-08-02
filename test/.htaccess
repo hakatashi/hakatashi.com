@@ -1,0 +1,77 @@
+#
+# Apaxy by @adamwhitcroft
+#
+# For a full breakdown of the mod_autoindex module:
+# http://apache.org/docs/2.2/mod/mod_autoindex.html
+#
+
+	# ENABLE INDEXING
+	Options +Indexes
+
+	# INDEX OPTIONS
+	IndexOptions +Charset=UTF-8 +FancyIndexing +IgnoreCase +FoldersFirst +XHTML +HTMLTable +SuppressRules +SuppressDescription +NameWidth=*
+
+	# HIDE /theme DIRECTORY
+	IndexIgnore .htaccess /theme
+
+#
+# GENERAL ICONS (BLANK, DIRECTORY, PARENT DIRECTORY)
+#
+
+#
+# Replace test with your directory URL eg:
+# If your directory is http://mywebsite.com/share/
+# you would change to:
+#
+# AddIcon /share/test/theme/icons/blank.png ^^BLANKICON^^
+#
+
+	AddIcon /test/theme/icons/blank.png ^^BLANKICON^^
+	AddIcon /test/theme/icons/folder.png ^^DIRECTORY^^
+	AddIcon /test/theme/icons/folder-home.png ..
+
+#
+# EXTENSION SPECIFIC ICONS
+#
+
+	AddIcon /test/theme/icons/audio.png .aif .iff .m3u .m4a .mid .mp3 .mpa .ra .wav .wma .f4a .f4b .oga .ogg
+	AddIcon /test/theme/icons/bin.png .bin
+	AddIcon /test/theme/icons/c.png .c
+	AddIcon /test/theme/icons/calc.png .xlsx .xlsm .xltx .xltm .xlam .xlr .xls .csv
+	AddIcon /test/theme/icons/css.png .css
+	AddIcon /test/theme/icons/deb.png .deb
+	AddIcon /test/theme/icons/doc.png .doc .docx .docm .dot .dotx .dotm .log .msg .odt .pages .rtf .tex .wpd .wps
+	AddIcon /test/theme/icons/draw.png .svg
+	AddIcon /test/theme/icons/eps.png .ai .eps
+	AddIcon /test/theme/icons/gif.png .gif
+	AddIcon /test/theme/icons/html.png .html .xhtml .shtml .htm
+	AddIcon /test/theme/icons/ico.png .ico
+	AddIcon /test/theme/icons/java.png .jar
+	AddIcon /test/theme/icons/jpg.png .jpg .jpeg
+	AddIcon /test/theme/icons/js.png .js .json
+	AddIcon /test/theme/icons/markdown.png .md
+	AddIcon /test/theme/icons/package.png .pkg .dmg
+	AddIcon /test/theme/icons/pdf.png .pdf
+	AddIcon /test/theme/icons/php.png .php .phtml
+	AddIcon /test/theme/icons/png.png .png
+	AddIcon /test/theme/icons/ps.png .ps
+	AddIcon /test/theme/icons/psd.png .psd
+	AddIcon /test/theme/icons/rar.png .rar
+	AddIcon /test/theme/icons/rb.png .rb
+	AddIcon /test/theme/icons/rpm.png .rpm
+	AddIcon /test/theme/icons/rss.png .rss
+	AddIcon /test/theme/icons/sql.png .sql
+	AddIcon /test/theme/icons/tiff.png .tiff
+	AddIcon /test/theme/icons/text.png .txt .nfo
+	AddIcon /test/theme/icons/video.png .asf .asx .avi .flv .mkv .mov .mp4 .mpg .rm .srt .swf .vob .wmv .m4v .f4v .f4p .ogv
+	AddIcon /test/theme/icons/xml.png .xml
+	AddIcon /test/theme/icons/zip.png .zip
+	DefaultIcon /test/theme/icons/default.png
+
+#
+# THEME FILES
+#
+
+	HeaderName /test/theme/header.html
+	ReadmeName /test/theme/footer.html
+	IndexStyleSheet "/test/theme/style.css"

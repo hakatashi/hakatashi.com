@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Roukoku</title>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+		<style>
+@font-face {
+    font-family: 'M+ 1p thin';
+    src: url('fonts/mplus-1p-thin-sub.eot');
+    src: url('fonts/mplus-1p-thin-sub.eot?#iefix') format('embedded-opentype'),
+    url('fonts/mplus-1p-thin-sub.woff') format('woff'),
+    url('fonts/mplus-1p-thin-sub.ttf') format('truetype');
+}
+            
+html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'M+ 1p thin';
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 0%, #dbdbdb 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#ffffff), color-stop(100%,#dbdbdb));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 0%,#dbdbdb 100%);
+    background: -o-radial-gradient(center, ellipse cover, #ffffff 0%,#dbdbdb 100%);
+    background: -ms-radial-gradient(center, ellipse cover, #ffffff 0%,#dbdbdb 100%);
+    background: radial-gradient(ellipse at center, #ffffff 0%,#dbdbdb 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#dbdbdb',GradientType=1);
+}
+
+div#roukoku {
+    text-align: center;
+    font-kerning: normal;
+    white-space: nowrap;
+    
+    color: #363636;
+    
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+}
+            
+p {
+    line-height: 1.2em;
+    margin: 0;
+    padding: 0;
+}
+
+p#kanji {
+    font-size: 288px;
+    text-shadow: 0.03em 0.03em 0.1em rgba(150, 150, 150, 1);
+}
+
+p#suuji {
+    font-size: 72px;
+}
+		</style>
+        <script>
+$(document).ready(function () {
+    var fitWidth = function () {
+        var width = $(window).width();
+
+        var textWidth = $('#kanji-time').width();
+        var textSize = parseInt($('#kanji').css('font-size'));
+
+        $('#kanji').css('font-size', (textSize * width / textWidth * 0.8) + 'px');
+        $('#suuji').css('font-size', (textSize * width / textWidth * 0.2) + 'px');
+    };
+    
+    fitWidth();
+    
+    $(window).resize(fitWidth);
+    
+    var setTime = function() {
+        $('#suuji').text(moment().format('YYYY/MM/DD hh:mm:ss UTCZZ'));
+        $('#kanji-time').text(moment().lang('roukoku').format('A'));
+    };
+    
+    setTime();
+    
+    setInterval(setTime, 1000);
+});
+            
+moment.lang('roukoku', {
+    meridiem: function (hour, minute, isLowercase) {
+        var hourNames = [
+            '夜半',
+            '鶏鳴',
+            '平旦',
+            '日出',
+            '食時',
+            '隅中',
+            '日中',
+            '日昳',
+            '晡時',
+            '日入',
+            '黄昏',
+            '人定'
+        ];
+        var minuteNames = [
+            '上刻',
+            '中刻',
+            '下刻'
+        ];
+        var timeString = '';
+        
+        timeString += hourNames[Math.floor((hour + 1) % 24 / 2)];
+        timeString += 'の';
+        timeString += minuteNames[Math.floor((minute + (hour + 1) % 2 * 60) / 40)];
+        
+        return timeString;
+    }
+});
+        </script>
+	</head>
+	<body>
+        <div id="roukoku">
+            <p id="kanji"><span id="kanji-time"></span></p>
+            <p id="suuji"></p>
+        </div>
+	</body>
+</html>

@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>検索避けコンバーター - 博多市</title>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <style>
+            body {
+                width: 750px;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <noscript>
+            <p>A「おい、動かないぞ」<br>
+            B「どれどれ……」<br>
+            A「博多市め、また適当な仕事をしやがって。こんど会ったら折檻してやる」<br>
+            B「おいおい、javascriptが動いてないじゃないか。これじゃあジェネレーターなんて」<br>
+            C「ちくわ大明神」<br>
+            A「動くわけないだろう？」<br>
+            B「なんだそういうことか！はっは、こいつはうっかりしてたぜ！」<br>
+            A「誰だ今の」</p>
+        </noscript>
+        <h1>検索避けコンバーター</h1>
+        <p>各文字の間に見えない「ゼロ幅文字」を挿入し、検索で引っかからなくします。</p>
+        <p>2013/12/12 作成</p>
+        <p>2013/12/13 bootstrap投入</p>
+        <p>2013/12/13 空白文字の種類選択と挿入間隔オプション追加</p>
+        <label for="input">Input</label>
+        <textarea class="form-control" id="input" style="resize: vertical;"></textarea>
+        <p class="help-block" id="inputlength">0</p>
+        <select id="type" class="form-control" style="width: auto; float: left;">
+            <option value="202a">U+202A</option>
+            <option value="200b">U+200B</option>
+            <option value="200c">U+200C</option>
+            <option value="random">ランダム</option>
+        </select>
+        <select id="interval" class="form-control" style="width: auto;">
+            <option value="1">1字おき</option>
+            <option value="2">2字おき</option>
+            <option value="3">3字おき</option>
+            <option value="4">4字おき</option>
+            <option value="5">5字おき</option>
+        </select>
+        <label for="output">Output</label>
+        <textarea class="form-control" id="output" style="resize: vertical;"></textarea>
+        <p class="help-block" id="outputlength">0</p>
+        <script type="text/javascript">
+            <!--
+            $(function(){
+                $("#input,#type,#interval").on('keyup keypress keydown change click contextmenu paste', function () {
+                    output = "";
+                    input = $("#input").val();
+                    switch ($("#type").val()) {
+                        case "202a":
+                            insertChar = "\u202a";
+                        case "200b":
+                            insertChar = "\u200b";
+                        case "200c":
+                            insertChar = "\u200c";
+                            random = false;
+                            break;
+                        case "random":
+                            insertChar = ["\u202a", "\u200b", "\u200c"];
+                            random = true;
+                            break;
+                    }
+                    if (input.length > 0) output += input.charAt(0);
+                    for (i = 1; i < input.length; i++) {
+                        if (i % parseInt($("#interval").val(), 10) == 0) output += random ? insertChar[Math.floor(Math.random() * insertChar.length)] : insertChar;
+                        output += input.charAt(i);
+                    }
+                    $("#output").val(output);
+                    
+                    $("#inputlength").text(input.length);
+                    $("#outputlength").text(output.length);
+                });
+            });
+            // -->
+        </script>
+    </body>
+</html>

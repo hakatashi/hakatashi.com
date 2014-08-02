@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HTML5 History API</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+var url = document.URL;
+var urlWithoutScheme = url.slice(url.indexOf("://") + 3);
+var urlWithoutDomain = urlWithoutScheme.slice(urlWithoutScheme.indexOf("/"));
+
+var idx = 0;
+var intervalId = setInterval(function() {
+	window.history.replaceState(null, null, urlWithoutDomain.substr(0, idx));
+	if (idx == urlWithoutDomain.length) clearInterval(intervalId);
+	idx++;
+}, 50);
+</script>
+</head>
+<body>
+<p style="padding-left: 200px;">↑See address bar.</p>
+<h2 style="margin-top: 100px;">Works well</h2>
+<ul>
+	<li>IE 11</li>
+	<li>Chrome 32</li>
+	<li>Chrome 32 for Android</li>
+	<li>Chrome 32 for iOS</li>
+	<li>Firefox 26</li>
+	<li>Firefox 26 for Android</li>
+	<li>safari 7</li>
+</ul>
+<h2>Works poorly</h2>
+<ul>
+	<li>Opera 18</li>
+</ul>
+<h2>Not works</h2>
+<ul>
+	<li>Android 4.1.2 Default Browther</li>
+	<li>Safari 7 for iOS</li>
+</ul>
+<p xmlns:dct="http://purl.org/dc/terms/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
+  <a rel="license"
+     href="http://creativecommons.org/publicdomain/zero/1.0/">
+    <img src="http://i.creativecommons.org/p/zero/1.0/88x31.png" style="border-style: none;" alt="CC0" />
+  </a>
+  <br />
+  To the extent possible under law,
+  <a rel="dct:publisher"
+     href="http://hakatashi.com">
+    <span property="dct:title">hakatashi</span></a>
+  has waived all copyright and related or neighboring rights to
+  this work.
+This work is published from:
+<span property="vcard:Country" datatype="dct:ISO3166"
+      content="JP" about="http://hakatashi.com">
+  日本</span>.
+</p>
+</body>
+</html>

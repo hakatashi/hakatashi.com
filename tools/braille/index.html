@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>点字コンバーター - 博多市</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="../../js/rawdeflate.min.js"></script>
+		<script type="text/javascript" src="../../js/rawinflate.min.js"></script>
+		<script type="text/javascript" src="../../js/zlib.min.js"></script>
+		<script type="text/javascript">
+			<!--
+function stringToByteArray(str) {
+	var n = str.length, idx = -1, bytes = [], i, j, c;
+	for(i = 0; i < n; ++i){
+		c = str.charCodeAt(i);
+		if(c <= 0x7F){
+			bytes[++idx] = c;
+		} else if(c <= 0x7FF){
+			bytes[++idx] = 0xC0 | (c >>> 6);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		} else if(c <= 0xFFFF){
+			bytes[++idx] = 0xE0 | (c >>> 12);
+			bytes[++idx] = 0x80 | ((c >>> 6) & 0x3F);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		} else {
+			bytes[++idx] = 0xF0 | (c >>> 18);
+			bytes[++idx] = 0x80 | ((c >>> 12) & 0x3F);
+			bytes[++idx] = 0x80 | ((c >>> 6) & 0x3F);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		}
+	}
+	return bytes;
+}
+function byteArrayToString(buf, callback) {
+	var bb = new Blob([new Uint8Array(buf)]);
+	var f = new FileReader();
+	f.onload = function(e) {
+		callback(e.target.result);
+	};
+	f.readAsText(bb);
+}
+function byteArrayToBraille(bin) {
+	var n = bin.length, i, str="";
+	for (i = 0; i < n; i++) {
+		str += String.fromCharCode( 0x2800 + bin[i] );
+	}
+	return str;
+}
+function brailleToByteArray(str) {
+	var n = str.length, i, bytes=[], code;
+	for (i = 0; i < n; i++) {
+		code = str.charCodeAt(i);
+		if ( 0x2800 <= code && code < 0x2900 ) bytes[i] = code - 0x2800;
+			else bytes[i] = 0;
+	}
+	return bytes;
+}
+function Encode() {
+	var flag=0, min;
+	var plain = stringToByteArray(document.getElementById("input").value);
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.FIXED});
+	var compressed_fixed = deflate.compress();
+	min = compressed_fixed.length;
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.DYNAMIC});
+	var compressed_dynamic = deflate.compress();
+	if ( compressed_dynamic.length < min ) {
+		flag = 1;
+		min = compressed_dynamic.length;
+	}
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.NONE});
+	var compressed_none = deflate.compress();
+	if ( compressed_none.length < min ) {
+		flag = 2;
+		min = compressed_none.length;
+	}
+	switch (flag) {
+		case 0: var encoded = byteArrayToBraille(compressed_fixed); break;
+		case 1: var encoded = byteArrayToBraille(compressed_dynamic); break;
+		case 2: var encoded = byteArrayToBraille(compressed_none); break;
+	}
+	document.getElementById("output").value = encoded;
+}
+function Decode() {
+	var compressed = brailleToByteArray(document.getElementById("output").value);
+	var inflate = new Zlib.RawInflate(compressed);
+	var plain = inflate.decompress();
+	byteArrayToString(plain, function(c) {document.getElementById("input").value = c;});
+}
+			// -->
+		</script>
+		<noscript>
+			<p>A「おい、動かないぞ」<br>
+			B「どれどれ……」<br>
+			A「博多市め、また適当な仕事をしやがって。こんど会ったら折檻してやる」<br>
+			B「おいおい、javascriptが動いてないじゃないか。これじゃあコンバーターなんて」<br>
+			C「ちくわ大明神」<br>
+			A「動くわけないだろう？」<br>
+			B「なんだそういうことか！はっは、こいつはうっかりしてたぜ！」<br>
+			A「誰だ今の」</p>
+		</noscript>
+		<h1>点字コンバーター</h1>
+		<p>※点字じゃないよ</p>
+		<textarea id="input" cols="30" rows="30"></textarea>
+		<input type="submit" name="submit" value="Encode" onclick="Encode()" />
+		<textarea id="output" cols="30" rows="30">&#x2855;&#x2892;&#x28b1;&#x288e;&#x2814;&#x2831;&#x280c;&#x2886;&#x287b;&#x289e;&#x28c2;&#x28dd;&#x2835;&#x28ab;&#x28d1;&#x28ad;&#x28b8;&#x2802;&#x2844;&#x28c5;&#x2871;&#x2805;&#x2820;&#x280a;&#x2884;&#x2868;&#x2828;&#x283d;&#x2833;&#x28de;&#x284d;&#x28d8;&#x286c;&#x283c;&#x284a;&#x289c;&#x281b;&#x284d;&#x28c7;&#x2843;&#x28f0;&#x2884;&#x283c;&#x28c9;&#x28fd;&#x28ce;&#x28dc;&#x2816;&#x2854;&#x283b;&#x288a;&#x28d7;&#x28bf;&#x28ff;&#x28ff;&#x28b3;&#x28bf;&#x2869;&#x288b;&#x2895;&#x2856;&#x28ae;&#x2874;&#x282a;&#x287a;&#x2825;&#x28a6;&#x287a;&#x28e5;&#x2894;&#x28c8;&#x2874;&#x28cd;&#x2834;&#x28e1;&#x284b;&#x2866;&#x28fa;&#x28a4;&#x286d;&#x2879;&#x282e;&#x28bc;&#x281d;&#x2828;&#x280b;&#x2817;&#x28fa;&#x28ce;&#x2825;&#x28d6;&#x287f;&#x287f;&#x28fe;&#x2806;&#x28e9;&#x286d;&#x28a3;&#x2896;&#x284c;&#x289a;&#x28e9;&#x282b;&#x28e7;&#x28c6;&#x2865;&#x28a3;&#x2807;&#x288a;&#x2899;&#x288e;&#x28ef;&#x28ee;&#x28df;&#x280f;&#x28b4;&#x286b;&#x288f;&#x2832;&#x28f1;&#x2855;&#x2868;&#x284c;&#x2831;&#x28cf;&#x2834;&#x286e;&#x28c4;&#x28d3;&#x2814;&#x2867;&#x28c9;&#x2876;&#x28a0;&#x2835;&#x2848;&#x28a6;&#x2857;&#x2899;&#x28b7;&#x28b4;&#x2841;&#x28bc;&#x2892;&#x28a6;&#x2879;&#x28a0;&#x2827;&#x2891;&#x28c5;&#x2865;&#x2802;&#x28da;&#x289f;&#x2878;&#x28be;&#x28ab;&#x2814;&#x28b8;&#x2864;&#x28a9;&#x2830;&#x28aa;&#x28e5;&#x2852;&#x2883;&#x282e;&#x2887;&#x2857;&#x2871;&#x282b;&#x2811;&#x280e;&#x284d;&#x2831;&#x2885;&#x2852;&#x28bc;&#x28c8;&#x28ad;&#x28e5;&#x2840;&#x2863;&#x2833;&#x288a;&#x2846;&#x282b;&#x2826;&#x28d1;&#x28b3;&#x28c0;&#x28d8;&#x285a;&#x2834;&#x289f;&#x283f;&#x28f8;&#x28bc;&#x2873;&#x28e1;&#x2871;&#x2844;&#x281b;&#x2867;&#x28e2;&#x2835;&#x281d;&#x283c;&#x2834;&#x28f4;&#x2817;&#x28c8;&#x2868;&#x28a2;&#x2893;&#x2816;&#x28ba;&#x28f2;&#x2825;&#x28e6;&#x2833;&#x2805;&#x284d;&#x2852;&#x2851;&#x2886;&#x286f;&#x2843;&#x285b;&#x282f;&#x28d7;&#x2814;&#x28bd;&#x2871;&#x28a6;&#x28d0;&#x288a;&#x28f5;&#x2869;&#x28b2;&#x28c9;&#x2840;&#x283f;&#x283d;&#x2886;&#x2836;&#x28bc;&#x289f;&#x2815;&#x2873;&#x28f3;&#x2849;&#x2826;&#x2813;&#x28b8;&#x28b8;&#x28f5;&#x28ee;&#x282f;&#x2811;&#x289c;&#x28ea;&#x2852;&#x28c4;&#x28fd;&#x2879;&#x28a5;&#x28aa;&#x28e6;&#x285b;&#x2892;&#x28ce;&#x28b2;&#x2833;&#x2842;&#x28f0;&#x2851;&#x282d;&#x28b8;&#x2870;&#x281d;&#x28de;&#x287c;&#x28c4;&#x2836;&#x28f4;&#x28e4;&#x281e;&#x28db;&#x280c;&#x286c;&#x28b7;&#x28bf;&#x2867;&#x2891;&#x28d9;&#x2823;&#x28e0;&#x2863;&#x2845;&#x28ef;&#x28e6;&#x280c;&#x2812;&#x2808;&#x28e6;&#x2881;&#x283e;&#x280b;&#x2855;&#x28e3;&#x28cd;&#x28ab;&#x28bb;&#x2843;&#x2830;&#x28a5;&#x283a;&#x2885;&#x285b;&#x283a;&#x285b;&#x2895;&#x28ae;&#x285a;&#x2864;&#x2827;&#x28be;&#x2893;&#x2882;&#x28c5;&#x2849;&#x285b;&#x289a;&#x28f3;&#x289d;&#x28ed;&#x2832;&#x2824;&#x280e;&#x28cd;&#x2882;&#x2873;&#x28f8;&#x28dd;&#x28aa;&#x28f9;&#x28e6;&#x2852;&#x28ac;&#x2826;&#x2819;&#x282f;&#x289e;&#x2817;&#x283f;&#x2830;&#x282d;&#x2890;&#x2849;&#x28aa;&#x281d;&#x2857;&#x285b;&#x28f6;&#x288d;&#x28ee;&#x2806;&#x289d;&#x2803;&#x284c;&#x2863;&#x286c;&#x28c2;&#x2894;&#x2810;&#x281d;&#x286f;&#x2847;&#x28f1;&#x2843;&#x2837;&#x284e;&#x28f4;&#x2825;&#x2857;&#x288b;&#x28d6;&#x283a;&#x2812;&#x2837;&#x28f5;&#x28d8;&#x28a3;&#x28ff;&#x28d2;&#x2886;&#x28e0;&#x2800;&#x28d0;&#x288f;&#x28ec;&#x28ff;&#x280b;&#x2839;&#x28de;&#x280f;&#x28f4;&#x2808;&#x28ab;&#x2830;&#x2896;&#x285d;&#x28a8;&#x28c8;&#x2801;&#x2831;&#x28e0;&#x280c;&#x2874;&#x28fa;&#x287a;&#x2884;&#x2827;&#x28bc;&#x28d6;&#x28dd;&#x28ae;&#x2871;&#x28ba;&#x28ec;&#x2804;&#x28bc;&#x2856;&#x28ad;&#x28f9;&#x28c9;&#x28d5;&#x287d;&#x2851;&#x2829;&#x288e;&#x28c5;&#x284f;&#x2835;&#x28f0;&#x284c;&#x28c7;&#x2807;&#x286c;&#x28f2;&#x288c;&#x28f3;&#x2844;&#x2808;&#x28e4;&#x2889;&#x2818;&#x285f;&#x2838;&#x2856;&#x28b4;&#x2826;&#x2831;&#x2873;&#x2839;&#x280b;&#x2810;&#x28e9;&#x2841;&#x28fb;&#x2819;&#x28e1;&#x2852;&#x28fa;&#x28c1;&#x28f9;&#x2816;&#x286f;&#x2827;&#x28ee;&#x28f6;&#x28e2;&#x2875;&#x2861;&#x288b;&#x2818;&#x2832;&#x28bc;&#x2800;</textarea>
+		<input type="submit" name="submit" value="Decode" onclick="Decode()" />
+		<p>2013/08/11 公開</p>
+		<p><a href="../hakke/">八卦コンバーター</a></p>
+		<p><a href="../yijing/">六十四卦コンバーター</a></p>
+	</body>
+</html>

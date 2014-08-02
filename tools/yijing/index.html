@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>六十四卦コンバーター - 博多市</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="../../js/rawdeflate.min.js"></script>
+		<script type="text/javascript" src="../../js/rawinflate.min.js"></script>
+		<script type="text/javascript" src="../../js/zlib.min.js"></script>
+		<script type="text/javascript">
+			<!--
+function stringToByteArray(str) {
+	var n = str.length, idx = -1, bytes = [], i, j, c;
+	for(i = 0; i < n; ++i){
+		c = str.charCodeAt(i);
+		if(c <= 0x7F){
+			bytes[++idx] = c;
+		} else if(c <= 0x7FF){
+			bytes[++idx] = 0xC0 | (c >>> 6);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		} else if(c <= 0xFFFF){
+			bytes[++idx] = 0xE0 | (c >>> 12);
+			bytes[++idx] = 0x80 | ((c >>> 6) & 0x3F);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		} else {
+			bytes[++idx] = 0xF0 | (c >>> 18);
+			bytes[++idx] = 0x80 | ((c >>> 12) & 0x3F);
+			bytes[++idx] = 0x80 | ((c >>> 6) & 0x3F);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		}
+	}
+	return bytes;
+}
+function byteArrayToString(buf, callback) {
+	var bb = new Blob([new Uint8Array(buf)]);
+	var f = new FileReader();
+	f.onload = function(e) {
+		callback(e.target.result);
+	};
+	f.readAsText(bb);
+}
+function byteArrayToYijing(bin) {
+	var n = bin.length, i, j, cnt=0, yijing=0, str="";
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < 8; j++) {
+			if (cnt < 5) {
+				if (bin[i] >>> (7-j) & 0x1) yijing += 1 << (5-cnt);
+				cnt++;
+			} else if (cnt == 5) {
+				if (bin[i] >>> (7-j) & 0x1) yijing += 1;
+				switch (yijing) {
+				case 0: str+="\u4DC0"; break;
+				case 1: str+="\u4DEA"; break;
+				case 2: str+="\u4DCD"; break;
+				case 3: str+="\u4DE1"; break;
+				case 4: str+="\u4DC8"; break;
+				case 5: str+="\u4DC4"; break;
+				case 6: str+="\u4DD9"; break;
+				case 7: str+="\u4DCA"; break;
+				case 8: str+="\u4DC9"; break;
+				case 9: str+="\u4DF9"; break;
+				case 10: str+="\u4DE5"; break;
+				case 11: str+="\u4DF5"; break;
+				case 12: str+="\u4DFC"; break;
+				case 13: str+="\u4DFB"; break;
+				case 14: str+="\u4DE8"; break;
+				case 15: str+="\u4DD2"; break;
+				case 16: str+="\u4DCC"; break;
+				case 17: str+="\u4DF0"; break;
+				case 18: str+="\u4DDD"; break;
+				case 19: str+="\u4DF6"; break;
+				case 20: str+="\u4DE4"; break;
+				case 21: str+="\u4DFE"; break;
+				case 22: str+="\u4DD5"; break;
+				case 23: str+="\u4DE3"; break;
+				case 24: str+="\u4DD8"; break;
+				case 25: str+="\u4DD0"; break;
+				case 26: str+="\u4DD4"; break;
+				case 27: str+="\u4DF2"; break;
+				case 28: str+="\u4DE9"; break;
+				case 29: str+="\u4DC2"; break;
+				case 30: str+="\u4DDA"; break;
+				case 31: str+="\u4DD7"; break;
+				case 32: str+="\u4DEB"; break;
+				case 33: str+="\u4DDB"; break;
+				case 34: str+="\u4DF1"; break;
+				case 35: str+="\u4DDF"; break;
+				case 36: str+="\u4DF8"; break;
+				case 37: str+="\u4DEF"; break;
+				case 38: str+="\u4DD1"; break;
+				case 39: str+="\u4DED"; break;
+				case 40: str+="\u4DC5"; break;
+				case 41: str+="\u4DEE"; break;
+				case 42: str+="\u4DFF"; break;
+				case 43: str+="\u4DE7"; break;
+				case 44: str+="\u4DFA"; break;
+				case 45: str+="\u4DDC"; break;
+				case 46: str+="\u4DC3"; break;
+				case 47: str+="\u4DC6"; break;
+				case 48: str+="\u4DE0"; break;
+				case 49: str+="\u4DDE"; break;
+				case 50: str+="\u4DF7"; break;
+				case 51: str+="\u4DFD"; break;
+				case 52: str+="\u4DF4"; break;
+				case 53: str+="\u4DE6"; break;
+				case 54: str+="\u4DF3"; break;
+				case 55: str+="\u4DCE"; break;
+				case 56: str+="\u4DCB"; break;
+				case 57: str+="\u4DEC"; break;
+				case 58: str+="\u4DE2"; break;
+				case 59: str+="\u4DCF"; break;
+				case 60: str+="\u4DD3"; break;
+				case 61: str+="\u4DC7"; break;
+				case 62: str+="\u4DD6"; break;
+				case 63: str+="\u4DC1"; break;
+				}
+				yijing=0;
+				cnt=0;
+			}
+		}
+	}
+	if (cnt != 0) {
+		switch (yijing) {
+		case 0: str+="\u4DC0"; break;
+		case 1: str+="\u4DEA"; break;
+		case 2: str+="\u4DCD"; break;
+		case 3: str+="\u4DE1"; break;
+		case 4: str+="\u4DC8"; break;
+		case 5: str+="\u4DC4"; break;
+		case 6: str+="\u4DD9"; break;
+		case 7: str+="\u4DCA"; break;
+		case 8: str+="\u4DC9"; break;
+		case 9: str+="\u4DF9"; break;
+		case 10: str+="\u4DE5"; break;
+		case 11: str+="\u4DF5"; break;
+		case 12: str+="\u4DFC"; break;
+		case 13: str+="\u4DFB"; break;
+		case 14: str+="\u4DE8"; break;
+		case 15: str+="\u4DD2"; break;
+		case 16: str+="\u4DCC"; break;
+		case 17: str+="\u4DF0"; break;
+		case 18: str+="\u4DDD"; break;
+		case 19: str+="\u4DF6"; break;
+		case 20: str+="\u4DE4"; break;
+		case 21: str+="\u4DFE"; break;
+		case 22: str+="\u4DD5"; break;
+		case 23: str+="\u4DE3"; break;
+		case 24: str+="\u4DD8"; break;
+		case 25: str+="\u4DD0"; break;
+		case 26: str+="\u4DD4"; break;
+		case 27: str+="\u4DF2"; break;
+		case 28: str+="\u4DE9"; break;
+		case 29: str+="\u4DC2"; break;
+		case 30: str+="\u4DDA"; break;
+		case 31: str+="\u4DD7"; break;
+		case 32: str+="\u4DEB"; break;
+		case 33: str+="\u4DDB"; break;
+		case 34: str+="\u4DF1"; break;
+		case 35: str+="\u4DDF"; break;
+		case 36: str+="\u4DF8"; break;
+		case 37: str+="\u4DEF"; break;
+		case 38: str+="\u4DD1"; break;
+		case 39: str+="\u4DED"; break;
+		case 40: str+="\u4DC5"; break;
+		case 41: str+="\u4DEE"; break;
+		case 42: str+="\u4DFF"; break;
+		case 43: str+="\u4DE7"; break;
+		case 44: str+="\u4DFA"; break;
+		case 45: str+="\u4DDC"; break;
+		case 46: str+="\u4DC3"; break;
+		case 47: str+="\u4DC6"; break;
+		case 48: str+="\u4DE0"; break;
+		case 49: str+="\u4DDE"; break;
+		case 50: str+="\u4DF7"; break;
+		case 51: str+="\u4DFD"; break;
+		case 52: str+="\u4DF4"; break;
+		case 53: str+="\u4DE6"; break;
+		case 54: str+="\u4DF3"; break;
+		case 55: str+="\u4DCE"; break;
+		case 56: str+="\u4DCB"; break;
+		case 57: str+="\u4DEC"; break;
+		case 58: str+="\u4DE2"; break;
+		case 59: str+="\u4DCF"; break;
+		case 60: str+="\u4DD3"; break;
+		case 61: str+="\u4DC7"; break;
+		case 62: str+="\u4DD6"; break;
+		case 63: str+="\u4DC1"; break;
+		}
+	}
+	return str;
+}
+function yijingToByteArray(str) {
+	var n = str.length, i, j, cnt=0, bytes=[], num, idx=0;
+	for (i = 0; i < n; i++) {
+		switch (str.charCodeAt(i)) {
+		case 0x4DC0: num=0; break;
+		case 0x4DEA: num=1; break;
+		case 0x4DCD: num=2; break;
+		case 0x4DE1: num=3; break;
+		case 0x4DC8: num=4; break;
+		case 0x4DC4: num=5; break;
+		case 0x4DD9: num=6; break;
+		case 0x4DCA: num=7; break;
+		case 0x4DC9: num=8; break;
+		case 0x4DF9: num=9; break;
+		case 0x4DE5: num=10; break;
+		case 0x4DF5: num=11; break;
+		case 0x4DFC: num=12; break;
+		case 0x4DFB: num=13; break;
+		case 0x4DE8: num=14; break;
+		case 0x4DD2: num=15; break;
+		case 0x4DCC: num=16; break;
+		case 0x4DF0: num=17; break;
+		case 0x4DDD: num=18; break;
+		case 0x4DF6: num=19; break;
+		case 0x4DE4: num=20; break;
+		case 0x4DFE: num=21; break;
+		case 0x4DD5: num=22; break;
+		case 0x4DE3: num=23; break;
+		case 0x4DD8: num=24; break;
+		case 0x4DD0: num=25; break;
+		case 0x4DD4: num=26; break;
+		case 0x4DF2: num=27; break;
+		case 0x4DE9: num=28; break;
+		case 0x4DC2: num=29; break;
+		case 0x4DDA: num=30; break;
+		case 0x4DD7: num=31; break;
+		case 0x4DEB: num=32; break;
+		case 0x4DDB: num=33; break;
+		case 0x4DF1: num=34; break;
+		case 0x4DDF: num=35; break;
+		case 0x4DF8: num=36; break;
+		case 0x4DEF: num=37; break;
+		case 0x4DD1: num=38; break;
+		case 0x4DED: num=39; break;
+		case 0x4DC5: num=40; break;
+		case 0x4DEE: num=41; break;
+		case 0x4DFF: num=42; break;
+		case 0x4DE7: num=43; break;
+		case 0x4DFA: num=44; break;
+		case 0x4DDC: num=45; break;
+		case 0x4DC3: num=46; break;
+		case 0x4DC6: num=47; break;
+		case 0x4DE0: num=48; break;
+		case 0x4DDE: num=49; break;
+		case 0x4DF7: num=50; break;
+		case 0x4DFD: num=51; break;
+		case 0x4DF4: num=52; break;
+		case 0x4DE6: num=53; break;
+		case 0x4DF3: num=54; break;
+		case 0x4DCE: num=55; break;
+		case 0x4DCB: num=56; break;
+		case 0x4DEC: num=57; break;
+		case 0x4DE2: num=58; break;
+		case 0x4DCF: num=59; break;
+		case 0x4DD3: num=60; break;
+		case 0x4DC7: num=61; break;
+		case 0x4DD6: num=62; break;
+		case 0x4DC1: num=63; break;
+		}
+		for (j = 0; j < 6; j++) {
+			if (cnt == 0) bytes[idx] = 0;
+			if (num >>> (5-j) & 0x1) bytes[idx] += 1 << (7-cnt);
+			if (cnt == 7) {
+				idx++;
+				cnt=0;
+			} else cnt++;
+		}
+	}
+	return bytes;
+}
+function Encode() {
+	var flag=0, min;
+	var plain = stringToByteArray(document.getElementById("input").value);
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.FIXED});
+	var compressed_fixed = deflate.compress();
+	min = compressed_fixed.length;
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.DYNAMIC});
+	var compressed_dynamic = deflate.compress();
+	if ( compressed_dynamic.length < min ) {
+		flag = 1;
+		min = compressed_dynamic.length;
+	}
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.NONE});
+	var compressed_none = deflate.compress();
+	if ( compressed_none.length < min ) {
+		flag = 2;
+		min = compressed_none.length;
+	}
+	switch (flag) {
+		case 0: var encoded = byteArrayToYijing(compressed_fixed); break;
+		case 1: var encoded = byteArrayToYijing(compressed_dynamic); break;
+		case 2: var encoded = byteArrayToYijing(compressed_none); break;
+	}
+	document.getElementById("output").value = encoded;
+}
+function Decode() {
+	var compressed = yijingToByteArray(document.getElementById("output").value);
+	var inflate = new Zlib.RawInflate(compressed);
+	var plain = inflate.decompress();
+	byteArrayToString(plain, function(c) {document.getElementById("input").value = c;});
+}
+			// -->
+		</script>
+		<noscript>
+			<p>A「おい、動かないぞ」<br>
+			B「どれどれ……」<br>
+			A「博多市め、また適当な仕事をしやがって。こんど会ったら折檻してやる」<br>
+			B「おいおい、javascriptが動いてないじゃないか。これじゃあコンバーターなんて」<br>
+			C「ちくわ大明神」<br>
+			A「動くわけないだろう？」<br>
+			B「なんだそういうことか！はっは、こいつはうっかりしてたぜ！」<br>
+			A「誰だ今の」</p>
+		</noscript>
+		<h1>六十四卦コンバーター</h1>
+		<textarea id="input" cols="30" rows="30"></textarea>
+		<input type="submit" name="submit" value="Encode" onclick="Encode()" />
+		<textarea id="output" cols="30" rows="30" style="/*font-family: '花園明朝A',Symbola,Quivira,'DejaVu Sans',Code2000,'Nishiki-teki';*/">&#x4dfb;&#x4dd8;&#x4dc7;&#x4dea;&#x4df6;&#x4dc5;&#x4dd8;&#x4de0;&#x4dc8;&#x4dc9;&#x4de3;&#x4dce;&#x4ded;&#x4de7;&#x4dc5;&#x4df4;&#x4dc8;&#x4dff;&#x4df8;&#x4dc5;&#x4dc2;&#x4dc5;&#x4dca;&#x4de2;&#x4df9;&#x4de2;&#x4dfe;&#x4dff;&#x4dd8;&#x4df1;&#x4dcd;&#x4deb;&#x4dc8;&#x4deb;&#x4df8;&#x4df2;&#x4ddd;&#x4dcb;&#x4dce;&#x4def;&#x4dfc;&#x4dca;&#x4df0;&#x4dc5;&#x4dc3;&#x4dcc;&#x4de3;&#x4df6;&#x4dc9;&#x4ddb;&#x4dfa;&#x4df7;&#x4de2;&#x4dd7;&#x4dd7;&#x4dde;&#x4dce;&#x4dfa;&#x4df7;&#x4dd5;&#x4dd7;&#x4dcd;&#x4dd3;&#x4df8;&#x4dfa;&#x4df2;&#x4dee;&#x4dc2;&#x4dcd;&#x4dc9;&#x4de3;&#x4ddb;&#x4dc0;&#x4df2;&#x4df5;&#x4de8;&#x4ddf;&#x4df7;&#x4dd3;&#x4dcb;&#x4de3;&#x4df4;&#x4dc8;&#x4dd1;&#x4dc9;&#x4dda;&#x4df3;&#x4df0;&#x4dc5;&#x4dcc;&#x4dd9;&#x4de1;&#x4dcd;&#x4df2;&#x4deb;&#x4dd8;&#x4de0;&#x4dfd;&#x4dda;&#x4dd7;&#x4de3;&#x4dc2;&#x4dd1;&#x4dc3;&#x4dc4;&#x4dfe;&#x4ddc;&#x4df5;&#x4dea;&#x4dd8;&#x4dd0;&#x4dc8;&#x4dfb;&#x4dda;&#x4df3;&#x4ddc;&#x4dc6;&#x4df8;&#x4dfc;&#x4dfe;&#x4de3;&#x4ded;&#x4dc1;&#x4dfa;&#x4def;&#x4dcd;&#x4dd2;&#x4dda;&#x4dd7;&#x4dff;&#x4dd3;&#x4dc2;&#x4dc8;&#x4dfd;&#x4ddb;&#x4dc6;&#x4dfa;&#x4df8;&#x4dd2;&#x4de1;&#x4dc4;&#x4dec;&#x4dd3;&#x4dcb;&#x4dcc;&#x4df7;&#x4dcf;&#x4dc7;&#x4dde;&#x4de6;&#x4dd7;&#x4dcb;&#x4de0;&#x4de4;&#x4dcf;&#x4ddd;&#x4de5;&#x4ddb;&#x4dd0;&#x4de2;&#x4dd0;&#x4dde;&#x4dc5;&#x4de3;&#x4dc5;&#x4df9;&#x4ddf;&#x4ded;&#x4ded;&#x4dfa;&#x4dfd;&#x4df0;&#x4dcb;&#x4dea;&#x4dcb;&#x4de7;&#x4dd7;&#x4dc1;&#x4dfc;&#x4de8;&#x4ddf;&#x4dcc;&#x4dd9;&#x4de8;&#x4df6;&#x4de7;&#x4df0;&#x4dea;&#x4df1;&#x4dea;&#x4dea;&#x4dd7;&#x4dc1;&#x4dde;&#x4df4;&#x4df3;&#x4de9;&#x4dc0;&#x4dc8;&#x4dc7;&#x4ddf;&#x4dfd;&#x4ddf;&#x4dea;&#x4dee;&#x4dd4;&#x4dce;&#x4dd5;&#x4de0;&#x4df9;&#x4dfa;&#x4dfd;&#x4dd5;&#x4df9;&#x4dd7;&#x4ddb;&#x4dc7;&#x4de9;&#x4dc9;&#x4de8;&#x4dc4;&#x4dd4;&#x4dd3;&#x4dec;&#x4dd8;&#x4dc7;&#x4dcc;&#x4ddc;&#x4dd8;&#x4dd1;&#x4ddd;&#x4dda;&#x4de6;&#x4dc6;&#x4dd6;&#x4def;&#x4dfd;&#x4df3;&#x4dc7;&#x4dd5;&#x4dce;&#x4dda;&#x4dd2;&#x4df9;&#x4dcd;&#x4de2;&#x4dc8;&#x4dcf;</textarea>
+		<input type="submit" name="submit" value="Decode" onclick="Decode()" />
+		<p>2013/08/11 公開</p>
+		<p><a href="../hakke/">八卦コンバーター</a></p>
+		<p><a href="../braille/">点字コンバーター</a></p>
+	</body>
+</html>

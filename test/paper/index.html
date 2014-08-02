@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>svgtest</title>
+		<script type="text/javascript" src="paper.js"></script>
+		<script type="text/paperscript" canvas="canvas">
+            project.importSVG(document.getElementById('svg'));
+        </script>
+		<script type="text/paperscript" canvas="canvas2">
+            project.importSVG(document.getElementById('svg2'));
+        </script>
+	</head>
+	<body>
+        <p>feGaussianBlur:</p>
+        <div style="width: 1000px; height: 500px">
+            <svg height="500" width="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg" style="float: left;">
+                <defs>
+                    <filter id="blur"> 
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="15"/>
+                    </filter>
+                </defs>
+                <circle cx="250" cy="250" r="200" fill="black" filter="url(#blur)"/>
+            </svg>
+            <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+        <p>font-face:</p>
+        <div style="width: 1000px; height: 500px">
+            <svg height="500" width="500" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg2" style="float: left;">
+                <defs>
+                    <font horiz-adv-x="80">
+                        <font-face units-per-em="100" font-family="fontface"/>
+                        <glyph unicode="1" d="M 0 100 h 20 v -100 h -20 z" horiz-adv-x="40"/>
+                        <glyph unicode="2" d="M 0 100 h 60 v -60 h -40 v -20 h 40 v -20 h -60 v 60 h 40 v 20 h -40 z" />
+                        <glyph unicode="3" d="M 0 100 h 60 v -100 h -60 v 20 h 40 v 20 h -40 v 20 h 40 v 20 h -40 z" />
+                        <glyph unicode="4" d="M 0 100 h 20 v -40 h 20 v 40 h 20 v -100 h -20 v 40 h -40 z" />
+                    </font>
+                </defs>
+                <text font-size="48" font-family="fontface" y="80">1234567890</text>
+                <path d="M 0 100 h 20 v 100 h -20 z" />
+                <path d="M 40 100 h 60 v 60 h -40 v 20 h 40 v 20 h -60 v -60 h 40 v -20 h -40 z" />
+                <path d="M 120 100 h 60 v 100 h -60 v -20 h 40 v -20 h -40 v -20 h 40 v -20 h -40 z" />
+                <path d="M 200 100 h 20 v 40 h 20 v -40 h 20 v 100 h -20 v -40 h -40 z" />
+            </svg>
+            <canvas id="canvas2" width="500" height="500"></canvas>
+        </div>
+	</body>
+</html>

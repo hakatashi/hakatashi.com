@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>八卦コンバーター - 博多市</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="../../js/rawdeflate.min.js"></script>
+		<script type="text/javascript" src="../../js/rawinflate.min.js"></script>
+		<script type="text/javascript" src="../../js/zlib.min.js"></script>
+		<script type="text/javascript">
+			<!--
+function stringToByteArray(str) {
+	var n = str.length, idx = -1, bytes = [], i, j, c;
+	for(i = 0; i < n; ++i){
+		c = str.charCodeAt(i);
+		if(c <= 0x7F){
+			bytes[++idx] = c;
+		} else if(c <= 0x7FF){
+			bytes[++idx] = 0xC0 | (c >>> 6);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		} else if(c <= 0xFFFF){
+			bytes[++idx] = 0xE0 | (c >>> 12);
+			bytes[++idx] = 0x80 | ((c >>> 6) & 0x3F);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		} else {
+			bytes[++idx] = 0xF0 | (c >>> 18);
+			bytes[++idx] = 0x80 | ((c >>> 12) & 0x3F);
+			bytes[++idx] = 0x80 | ((c >>> 6) & 0x3F);
+			bytes[++idx] = 0x80 | (c & 0x3F);
+		}
+	}
+	return bytes;
+}
+function byteArrayToString(buf, callback) {
+	var bb = new Blob([new Uint8Array(buf)]);
+	var f = new FileReader();
+	f.onload = function(e) {
+		callback(e.target.result);
+	};
+	f.readAsText(bb);
+}
+function byteArrayToHakke(bin) {
+	var n = bin.length, i, j, cnt=0, hakke=0, str="";
+	for (i = 0; i < n; i++) {
+		for (j = 0; j < 8; j++) {
+			if (cnt == 0) {
+				if (bin[i] >>> (7-j) & 0x1) hakke+=4;
+				cnt++;
+			} else if (cnt == 1) {
+				if (bin[i] >>> (7-j) & 0x1) hakke+=2;
+				cnt++;
+			} else if (cnt == 2) {
+				if (bin[i] >>> (7-j) & 0x1) hakke+=1;
+				switch (hakke) {
+				case 0: str+="\u2630"; break;
+				case 1: str+="\u2631"; break;
+				case 2: str+="\u2632"; break;
+				case 3: str+="\u2633"; break;
+				case 4: str+="\u2634"; break;
+				case 5: str+="\u2635"; break;
+				case 6: str+="\u2636"; break;
+				case 7: str+="\u2637"; break;
+				}
+				hakke=0;
+				cnt=0;
+			}
+		}
+	}
+	if (cnt != 0) {
+		switch (hakke) {
+		case 0: str+="\u2630"; break;
+		case 1: str+="\u2631"; break;
+		case 2: str+="\u2632"; break;
+		case 3: str+="\u2633"; break;
+		case 4: str+="\u2634"; break;
+		case 5: str+="\u2635"; break;
+		case 6: str+="\u2636"; break;
+		case 7: str+="\u2637"; break;
+		}
+	}
+	return str;
+}
+function hakkeToByteArray(str) {
+	var n = str.length, i, j, cnt=0, hakke=0, bytes=[], num, idx=0;
+	for (i = 0; i < n; i++) {
+		switch (str.charCodeAt(i)) {
+		case 0x2630: num=0; break;
+		case 0x2631: num=1; break;
+		case 0x2632: num=2; break;
+		case 0x2633: num=3; break;
+		case 0x2634: num=4; break;
+		case 0x2635: num=5; break;
+		case 0x2636: num=6; break;
+		case 0x2637: num=7; break;
+		}
+		for (j = 0; j < 3; j++) {
+			if (cnt == 0) bytes[idx] = 0;
+			if (num >>> (2-j) & 0x1) bytes[idx] += 1 << (7-cnt);
+			if (cnt == 7) {
+				idx++;
+				cnt=0;
+			} else cnt++;
+		}
+	}
+	return bytes;
+}
+function Encode() {
+	var flag=0, min;
+	var plain = stringToByteArray(document.getElementById("input").value);
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.FIXED});
+	var compressed_fixed = deflate.compress();
+	min = compressed_fixed.length;
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.DYNAMIC});
+	var compressed_dynamic = deflate.compress();
+	if ( compressed_dynamic.length < min ) {
+		flag = 1;
+		min = compressed_dynamic.length;
+	}
+	var deflate = new Zlib.RawDeflate(plain, {compressionType: Zlib.Deflate.CompressionType.NONE});
+	var compressed_none = deflate.compress();
+	if ( compressed_none.length < min ) {
+		flag = 2;
+		min = compressed_none.length;
+	}
+	switch (flag) {
+		case 0: var encoded = byteArrayToHakke(compressed_fixed); break;
+		case 1: var encoded = byteArrayToHakke(compressed_dynamic); break;
+		case 2: var encoded = byteArrayToHakke(compressed_none); break;
+	}
+	document.getElementById("output").value = encoded;
+}
+function Decode() {
+	var compressed = hakkeToByteArray(document.getElementById("output").value);
+	var inflate = new Zlib.RawInflate(compressed);
+	var plain = inflate.decompress();
+	byteArrayToString(plain, function(c) {document.getElementById("input").value = c;});
+}
+			// -->
+		</script>
+		<noscript>
+			<p>A「おい、動かないぞ」<br>
+			B「どれどれ……」<br>
+			A「博多市め、また適当な仕事をしやがって。こんど会ったら折檻してやる」<br>
+			B「おいおい、javascriptが動いてないじゃないか。これじゃあコンバーターなんて」<br>
+			C「ちくわ大明神」<br>
+			A「動くわけないだろう？」<br>
+			B「なんだそういうことか！はっは、こいつはうっかりしてたぜ！」<br>
+			A「誰だ今の」</p>
+		</noscript>
+		<h1>八卦コンバーター</h1>
+		<textarea id="input" cols="30" rows="30" onkeyup=""></textarea>
+		<input type="submit" name="submit" value="Encode" onclick="Encode()" />
+		<textarea id="output" cols="30" rows="30">&#9778;&#9779;&#9779;&#9776;&#9783;&#9783;&#9779;&#9779;&#9779;&#9779;&#9781;&#9776;&#9777;&#9780;&#9782;&#9776;&#9776;&#9780;&#9776;&#9780;&#9778;&#9779;&#9779;&#9783;&#9783;&#9780;&#9783;&#9781;&#9778;&#9782;&#9776;&#9782;&#9778;&#9776;&#9781;&#9779;&#9780;&#9780;&#9781;&#9776;&#9783;&#9777;&#9778;&#9778;&#9779;&#9776;&#9781;&#9778;&#9778;&#9777;&#9776;&#9777;&#9776;&#9776;&#9777;&#9781;&#9783;&#9778;&#9778;&#9777;&#9777;&#9782;&#9778;&#9777;&#9780;&#9778;&#9776;&#9777;&#9777;&#9778;&#9777;&#9776;&#9780;&#9777;&#9777;&#9779;&#9780;&#9778;&#9780;&#9780;&#9783;&#9783;&#9776;&#9776;&#9782;&#9777;&#9779;&#9782;&#9779;&#9776;&#9783;&#9783;&#9783;&#9778;&#9776;&#9778;&#9779;&#9781;&#9779;&#9782;&#9782;&#9776;&#9781;&#9776;&#9779;&#9783;&#9778;&#9777;&#9781;&#9781;&#9781;&#9777;&#9782;&#9779;&#9781;&#9780;&#9782;&#9779;&#9781;&#9780;&#9778;&#9776;&#9780;&#9781;&#9781;&#9777;&#9776;&#9777;&#9776;&#9780;&#9781;&#9780;&#9783;&#9777;&#9776;&#9780;&#9781;&#9776;&#9782;&#9780;&#9777;&#9780;&#9783;&#9777;&#9776;&#9780;&#9782;&#9777;&#9782;&#9783;&#9781;&#9780;&#9783;&#9780;&#9782;&#9777;&#9777;&#9778;&#9778;&#9783;&#9782;&#9778;&#9783;&#9777;&#9779;&#9782;&#9776;&#9777;&#9779;&#9782;&#9780;&#9776;&#9779;&#9781;&#9782;&#9782;&#9778;&#9779;&#9781;&#9783;&#9781;&#9780;&#9779;&#9780;&#9777;&#9783;&#9779;&#9778;&#9780;&#9777;&#9777;&#9779;&#9778;&#9781;&#9781;&#9777;&#9782;&#9779;&#9779;&#9776;&#9779;&#9778;&#9777;&#9783;&#9777;&#9777;&#9782;&#9782;&#9779;&#9782;&#9780;&#9777;&#9781;&#9779;&#9780;&#9782;&#9780;&#9777;&#9778;&#9776;&#9783;&#9777;&#9783;&#9779;&#9779;&#9776;&#9779;&#9778;&#9778;&#9776;&#9778;&#9781;&#9783;&#9783;&#9782;&#9779;&#9782;&#9778;&#9780;&#9776;&#9781;&#9780;&#9778;&#9779;&#9783;&#9777;&#9776;&#9782;&#9777;&#9781;&#9776;&#9781;&#9780;&#9777;&#9778;&#9778;&#9778;&#9776;&#9777;&#9782;&#9778;&#9778;&#9783;&#9781;&#9780;&#9778;&#9777;&#9780;&#9783;&#9777;&#9778;&#9777;&#9780;&#9777;&#9777;&#9782;&#9780;&#9781;&#9782;&#9778;&#9778;&#9783;&#9779;&#9782;&#9780;&#9777;&#9778;&#9781;&#9781;&#9780;&#9783;&#9781;&#9780;&#9776;&#9782;&#9781;&#9776;&#9780;&#9780;&#9778;&#9781;&#9780;&#9782;&#9783;&#9776;&#9783;&#9783;&#9776;&#9777;&#9779;&#9783;&#9780;&#9778;&#9779;&#9779;&#9782;&#9777;&#9780;&#9777;&#9778;&#9779;&#9777;&#9777;&#9777;&#9780;&#9782;&#9780;&#9778;&#9777;&#9783;&#9782;&#9783;&#9782;&#9776;&#9780;&#9777;&#9781;&#9777;&#9780;&#9782;&#9778;&#9778;&#9782;&#9781;&#9782;&#9776;&#9781;&#9782;&#9778;&#9783;&#9783;&#9776;&#9777;&#9778;&#9782;&#9782;&#9783;&#9783;&#9780;&#9778;&#9778;&#9779;&#9781;&#9780;&#9782;&#9782;&#9779;&#9779;&#9776;&#9783;&#9783;&#9778;&#9776;&#9780;&#9776;&#9779;&#9777;&#9779;&#9776;&#9781;&#9777;&#9776;&#9776;&#9783;&#9782;&#9777;&#9776;&#9779;&#9777;&#9777;&#9776;&#9776;&#9783;&#9782;&#9782;&#9780;&#9780;&#9783;&#9778;&#9782;&#9780;&#9778;&#9783;&#9780;&#9782;&#9777;&#9781;&#9776;&#9779;&#9776;&#9776;&#9776;&#9782;&#9776;&#9777;&#9777;&#9781;&#9777;&#9777;&#9780;&#9776;&#9781;&#9781;&#9779;&#9783;&#9783;&#9780;&#9778;&#9782;&#9781;&#9782;&#9780;&#9781;&#9779;&#9780;&#9783;&#9782;&#9778;&#9776;&#9781;&#9783;&#9783;&#9780;&#9783;&#9782;&#9782;&#9781;&#9779;&#9778;&#9781;&#9783;&#9780;&#9780;&#9777;&#9779;&#9781;&#9783;&#9781;&#9776;&#9781;&#9780;&#9783;&#9781;&#9781;&#9778;&#9779;&#9777;&#9783;&#9778;&#9776;&#9777;&#9781;</textarea>
+		<input type="submit" name="submit" value="Decode" onclick="Decode()" />
+		<p>2013/08/01 公開</p>
+		<p>2013/08/03 「バルス」「ワロス」などをエンコードするとおかしくなる問題に対処。おかしくなる文字列は以前のバージョンと互換性がありません。</p>
+		<p><a href="../yijing/">六十四卦コンバーター</a></p>
+		<p><a href="../braille/">点字コンバーター</a></p>
+	</body>
+</html>

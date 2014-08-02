@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>野馬台詩ジェネレーター - 博多市</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			<!--
+				function ShowLength(str) {
+					str = str.replace(/\r\n/g, "");
+					str = str.replace(/\n/g, "");
+					var RemainLength = 120 - str.length;
+					document.getElementById("inputlength").innerHTML = 'あと' + RemainLength + '文字';
+				}
+				function Encode() {
+					Data = new Array(
+						81, 80, 79, 78, 61, 60, 59, 58, 41, 40, 39, 38,
+						82, 83, 76, 77, 62, 63, 56, 57, 42, 43, 36, 37,
+						85, 84, 75, 74, 65, 64, 55, 54, 45, 44, 35, 34,
+						86, 87, 72, 73, 66, 67, 52, 53, 46, 47, 32, 33,
+						89, 88, 71, 70, 69, 68, 51, 50, 49, 48, 31, 30,
+						90, 91, 92, 113, 114, 119, 0, 5, 6, 27, 28, 29,
+						99, 98, 93, 112, 115, 118, 1, 4, 7, 26, 21, 20,
+						100, 97, 94, 111, 116, 117, 2, 3, 8, 25, 22, 19,
+						101, 96, 95, 110, 109, 108, 11, 10, 9, 24, 23, 18,
+						102, 103, 104, 105, 106, 107, 12, 13, 14, 15, 16, 17);
+					Result = "";
+					str = document.getElementById("input").value;
+					str = str.replace(/\r\n/g, "");
+					str = str.replace(/\n/g, "");
+					for (i=0;i<10;i++) {
+						for (j=0;j<12;j++) {
+							if ( Data[i*12+j] < str.length ) {
+								Result += str.charAt(Data[i*12+j]);
+							} else {
+								Result += "　";
+							}
+						}
+						Result += "\n";
+					}
+					document.getElementById("output").value = Result;
+				}
+				function Decode() {
+					Data = new Array(
+						66, 78, 90, 91, 79, 67, 68, 80, 92, 104, 103, 102,
+						114, 115, 116, 117, 118, 119, 107, 95, 83, 82, 94, 106,
+						105, 93, 81, 69, 70, 71, 59, 58, 46, 47, 35, 34,
+						22, 23, 11, 10, 9, 8, 20, 21, 33, 32, 44, 45,
+						57, 56, 55, 54, 42, 43, 31, 30, 18, 19, 7, 6,
+						5, 4, 16, 17, 29, 28, 40, 41, 53, 52, 51, 50,
+						38, 39, 27, 26, 14, 15, 3, 2, 1, 0, 12, 13,
+						25, 24, 36, 37, 49, 48, 60, 61, 62, 74, 86, 98,
+						97, 85, 73, 72, 84, 96, 108, 109, 110, 111, 112, 113,
+						101, 100, 99, 87, 75, 63, 64, 76, 88, 89, 77, 65);
+					Result = "";
+					str = document.getElementById("output").value;
+					str = str.replace(/\r\n/g, "");
+					str = str.replace(/\n/g, "");
+					for (i=0;i<120;i++) {
+						if ( Data[i] < str.length ) {
+							Result += str.charAt(Data[i]);
+						}
+					}
+					document.getElementById("input").value = Result;
+				}
+			// -->
+		</script>
+		<noscript>
+			<p>A「おい、動かないぞ」<br>
+			B「どれどれ……」<br>
+			A「博多市め、また適当な仕事をしやがって。こんど会ったら折檻してやる」<br>
+			B「おいおい、javascriptが動いてないじゃないか。これじゃあジェネレーターなんて」<br>
+			C「ちくわ大明神」<br>
+			A「動くわけないだろう？」<br>
+			B「なんだそういうことか！はっは、こいつはうっかりしてたぜ！」<br>
+			A「誰だ今の」</p>
+		</noscript>
+		<h1>野馬台詩ジェネレーター</h1>
+		<textarea id="input" cols="30" rows="11" onkeyup="ShowLength(value)">東海姫氏國
+百世代天工
+右司爲輔翼
+衡主建元功
+初興治法事
+終成祭祖宗
+本枝周天壤
+君臣定始終
+谷塡田孫走
+魚膾生羽翔
+葛後干戈動
+中微子孫昌
+白龍游失水
+窘急寄故城
+黄鷄代人食
+黑鼠喰牛腸
+丹水流盡後
+天命在三公
+百王流畢竭
+猿犬稱英雄
+星流飛野外
+鐘鼓喧國中
+靑丘與赤土
+茫茫遂爲空</textarea>
+		<input type="submit" name="submit" value="Encode" onclick="Encode()" />
+		<p id="inputlength">あと0文字</p>
+		<textarea id="output" cols="30" rows="11"></textarea>
+		<input type="submit" name="submit" value="Decode" onclick="Decode()" />
+		<p>2013/07/08 逆順になっていたことに気付き修正</p>
+	</body>
+</html>

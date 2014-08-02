@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Dancer.js test page</title>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/dancer.js/0.3.1/dancer.min.js"></script>
+        <style>
+body {
+	background-color: #C5B05F;
+}
+
+h1 {
+	text-align: center;
+	color: #3D1616;
+}
+
+#spectrum {
+	width: 640px;
+	height: 640px;
+	margin: 0 auto;
+	
+	overflow: hidden;
+}
+
+.bar-wrap {
+	width: 20px;
+	height: 100%;
+	margin: 0;
+
+	position: relative;
+	float: left;
+	
+	overflow: hidden;
+}
+
+.bar {
+	width: 10px;
+	height: 0;
+	margin: 0;
+
+	position: absolute;
+	top: 0;
+	left: 5px;
+
+	background-color: #3D1616;
+}
+        </style>
+    </head>
+    <body>
+		<h1>Dancer.js test page</h1>
+        <div id="spectrum"></div>
+        <script type="text/javascript">
+for (var i = 0; i < 32; i++) {
+	$('#spectrum').append($('<div class="bar-wrap"><div class="bar"></div></div>'));
+}
+
+var dancer = new Dancer();
+dancer.load({src: 'https://archive.org/download/nyannyannyan/NyanCatoriginal', codecs: ['ogg', 'mp3']});
+dancer.setVolume(0);
+dancer.play();
+
+dancer.after(0, function() {
+	var spectrum = dancer.getSpectrum();
+	for (var i = 0; i < 32; i++) {
+		var sum = 0;
+		for (var j = 0; j < 16; j++) {
+			sum += spectrum[i * 16 + j];
+		}
+		var height = sum / 16 * 10000;
+		$('#spectrum .bar-wrap:nth-child(' + (i + 1) + ') .bar').css({
+			height: height + 'px',
+			top: (640 - height) / 2 + 'px'
+		});
+	}
+});
+        </script>
+    </body>
+</html>
