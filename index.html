@@ -1,60 +1,148 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
 	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" type="text/css" href="index.css">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="index.css" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
-		<title>博多市総合案内所</title>
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-43802516-1"></script>
+		<title>Vita brevis, ut mirabile pellicula.</title>
+		<script
+			async
+			src="https://www.googletagmanager.com/gtag/js?id=UA-43802516-1"
+		></script>
 		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-			gtag('config', 'UA-43802516-1');
+			window.dataLayer = window.dataLayer || []
+			function gtag () {
+				dataLayer.push(arguments)
+			}
+			gtag('js', new Date())
+			gtag('config', 'UA-43802516-1')
 		</script>
 	</head>
 	<body>
-		<div class="body"></div>
-		<div class="not-loading">
-			<div class="wrap">
-				<div class="box">
-					<div class="back">
-						<div class="blue"></div>
-					</div>
-					<div class="bottom">
-						<div class="black"></div>
-						<div class="white"></div>
-						<div class="red"></div>
-						<div class="white"></div>
-						<div class="blue"></div>
-					</div>
-					<div class="left">
-						<div class="black"></div>
-						<div class="white"></div>
-						<div class="red"></div>
-						<div class="white"></div>
-						<div class="blue"></div>
-					</div>
-					<div class="top">
-						<div class="black"></div>
-						<div class="white"></div>
-						<div class="red"></div>
-						<div class="white"></div>
-						<div class="blue"></div>
-					</div>
-					<div class="right">
-						<div class="black"></div>
-						<div class="white"></div>
-						<div class="red"></div>
-						<div class="white"></div>
-						<div class="blue"></div>
-					</div>
-					<div class="front">
-						<div class="black"></div>
+		<div id="world">
+			<div class="bound-wrap">
+				<div class="bound topfix">
+					<div class="topfix-box"></div>
+				</div>
+				<svg class="bound" viewBox="-17 -17 514 514">
+					<mask id="black-mask">
+						<polygon
+							fill="white"
+							points="130,185 146,173 286,243 286,343 270,355 130,285"
+						/>
+					</mask>
+					<mask id="white1-mask">
+						<polygon
+							fill="white"
+							points="286,343 286,243 146,173 162,161 302,231 302,331"
+						/>
+					</mask>
+					<mask id="red-mask">
+						<polygon
+							fill="white"
+							points="162,161 178,149 318,219 318,319 302,331 302,231"
+						/>
+					</mask>
+					<mask id="white2-mask">
+						<polygon
+							fill="white"
+							points="334,307 334,207 194,137 178,149 318,219 318,319"
+						/>
+					</mask>
+					<mask id="blue-mask">
+						<polygon
+							fill="white"
+							points="194,137 210,125 350,195 350,295 334,307 334,207"
+						/>
+					</mask>
+					<g mask="url(#black-mask)">
+						<g class="polygon-pattern black-pattern">
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+						</g>
+					</g>
+					<g mask="url(#white1-mask)">
+						<g class="polygon-pattern white1-pattern">
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+						</g>
+					</g>
+					<g mask="url(#red-mask)">
+						<g class="polygon-pattern red-pattern">
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+						</g>
+					</g>
+					<g mask="url(#white2-mask)">
+						<g class="polygon-pattern white2-pattern">
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+						</g>
+					</g>
+					<g mask="url(#blue-mask)">
+						<g class="polygon-pattern blue-pattern">
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="white" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="red" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="black" points="100,0 0,480 -1100,480 -1000,0" />
+							<polygon fill="blue" points="100,0 0,480 -1100,480 -1000,0" />
+						</g>
+					</g>
+				</svg>
+				<div class="bound blue">
+					<div class="hexagon">
+						<div class="top tip"></div>
+						<div class="body"></div>
+						<div class="bottom tip"></div>
 					</div>
 				</div>
-				<div class="name">
-					Not Loading<span class="dots"><span class="dot">.</span><span class="dot">.</span><span class="dot">.</span></span>
+				<div class="bound red">
+					<div class="hexagon">
+						<div class="top tip"></div>
+						<div class="body"></div>
+						<div class="bottom tip"></div>
+					</div>
+				</div>
+				<div class="bound black">
+					<div class="hexagon">
+						<div class="top tip"></div>
+						<div class="body"></div>
+						<div class="bottom tip"></div>
+					</div>
 				</div>
 			</div>
 		</div>
