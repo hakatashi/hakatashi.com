@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
+    />
+    <style>
+      button {
+        zoom: 0.7;
+      }
+    </style>
+    <title>博多市への送金手段</title>
+  </head>
+  <body>
+    <h1>博多市への送金手段</h1>
+
+    <h2>PayPay</h2>
+    <p>
+      受け取りリンク:
+      <strong>
+        <a href="https://qr.paypay.ne.jp/p2p01_uwh5xE0Q95KWfCTG"
+          >https://qr.paypay.ne.jp/p2p01_uwh5xE0Q95KWfCTG</a
+        >
+      </strong>
+    </p>
+    <p>
+      PayPay ID: <strong>hakatashi</strong>
+      <input id="paypay-id" type="hidden" value="hakatashi" />
+      <button data-copy-to-clipboard-target="paypay-id">Copy</button>
+    </p>
+
+    <h2>ことら送金</h2>
+    <p>
+      電話番号: <strong>070-9207-1140</strong>
+      <input id="kotora-phone" type="hidden" value="070-9207-1140" />
+      <button data-copy-to-clipboard-target="kotora-phone">Copy</button>
+      (みんなの銀行宛)
+    </p>
+    <p>
+      メールアドレス: <strong>hakatasiloving@gmail.com</strong>
+      <input id="kotora-email" type="hidden" value="hakatasiloving@gmail.com" />
+      <button data-copy-to-clipboard-target="kotora-email">Copy</button>
+      (みずほ銀行宛)
+    </p>
+    <p>
+      口座名義: <strong>タカハシ　コウキ</strong>
+      <input id="kotora-account-name" type="hidden" value="タカハシ　コウキ" />
+      <button data-copy-to-clipboard-target="kotora-account-name">Copy</button>
+    </p>
+
+    <h2>銀行振込</h2>
+    <p>
+      みずほ銀行 (金融機関コード: <strong>0001</strong>
+      <input id="mizuho-code" type="hidden" value="0001" />
+      <button data-copy-to-clipboard-target="mizuho-code">Copy</button>
+      )
+    </p>
+    <p>
+      池袋西口支店 (支店コード: <strong>229</strong>
+      <input id="ikebukuro-code" type="hidden" value="229" />
+      <button data-copy-to-clipboard-target="ikebukuro-code">Copy</button>
+      )
+    </p>
+    <p>
+      普通預金 <strong>1630483</strong>
+      <input id="account-number" type="hidden" value="1630483" />
+      <button data-copy-to-clipboard-target="account-number">Copy</button>
+    </p>
+    <p>
+      口座名義: <strong>タカハシ　コウキ</strong>
+      <input id="account-name" type="hidden" value="タカハシ　コウキ" />
+      <button data-copy-to-clipboard-target="account-name">Copy</button>
+    </p>
+
+    <h2>Wise</h2>
+    <p>
+      受け取りリンク:
+      <strong
+        ><a href="https://wise.com/pay/me/kokit136"
+          >https://wise.com/pay/me/kokit136
+        </a></strong
+      >
+    </p>
+    <p>
+      Wise Tag: <strong>@kokit136</strong>
+      <input id="wise-tag" type="hidden" value="@kokit136" />
+      <button data-copy-to-clipboard-target="wise-tag">Copy</button>
+    </p>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  </body>
+</html>
