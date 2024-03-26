@@ -1,26 +1,293 @@
-html, body, .body, .not-loading, .wrap {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
-  color: #999;
-}
-
+html,
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.teaser {
-  width: 100%;
-  max-width: 80rem;
-  max-height: 80%;
-}
-
-.number {
-  font-size: 6vmin;
-  font-family: 'Lato', sans-serif;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
+  padding: 0;
+}
+
+#world {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bound-wrap {
+  width: 20rem;
+  height: 20rem;
+  position: relative;
+  transform-origin: 45% 55%;
+  animation: bound-wrap-scale 8s both cubic-bezier(1, 0, 1, 0);
+}
+
+.bound {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: bound-scale 8s both cubic-bezier(0, 0.9, 0.5, 1);
+}
+
+.bound.topfix {
+  z-index: 200;
+}
+
+.bound.topfix .topfix-box {
+  width: 20rem;
+  height: 20rem;
+  border: 2rem solid white;
+  box-sizing: border-box;
+  transform: scale(1.05);
+  transform-origin: center;
+}
+
+svg.bound {
+  z-index: 100;
+}
+
+svg.bound .polygon-pattern {
+  transform-origin: center;
+  animation: polygon-pattern-translate 8s both cubic-bezier(0, 0.5, 0.5, 1);
+}
+
+svg.bound .white1-pattern {
+  animation-delay: 0.1s;
+}
+
+svg.bound .red-pattern {
+  animation-delay: 0.2s;
+}
+
+svg.bound .white2-pattern {
+  animation-delay: 0.3s;
+}
+
+svg.bound .blue-pattern {
+  animation-delay: 0.4s;
+}
+
+svg.bound .polygon-pattern polygon:nth-child(2) {
+  transform: translateX(-300px);
+}
+svg.bound .polygon-pattern polygon:nth-child(3) {
+  transform: translateX(-600px);
+}
+svg.bound .polygon-pattern polygon:nth-child(4) {
+  transform: translateX(-900px);
+}
+svg.bound .polygon-pattern polygon:nth-child(5) {
+  transform: translateX(-1200px);
+}
+svg.bound .polygon-pattern polygon:nth-child(6) {
+  transform: translateX(-1500px);
+}
+svg.bound .polygon-pattern polygon:nth-child(7) {
+  transform: translateX(-1800px);
+}
+svg.bound .polygon-pattern polygon:nth-child(8) {
+  transform: translateX(-2100px);
+}
+svg.bound .polygon-pattern polygon:nth-child(9) {
+  transform: translateX(-2400px);
+}
+
+.bound:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.bound:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.bound:nth-child(4) {
+  animation-delay: 0.3s;
+}
+.bound:nth-child(5) {
+  animation-delay: 0.4s;
+}
+
+.hexagon {
+  animation: hexagon-rotate 8s both cubic-bezier(0.7, 0, 0.1, 1);
+}
+
+.hexagon .tip {
+  width: 0;
+  height: 0;
+  border-right: 3.4641rem solid transparent;
+  border-left: 3.4641rem solid transparent;
+}
+
+.bound .hexagon .top {
+  animation: hexagon-top-grow 8s both cubic-bezier(0.7, 0, 0.1, 1);
+}
+
+.bound .hexagon .bottom {
+  animation: hexagon-bottom-grow 8s both cubic-bezier(0.7, 0, 0.1, 1);
+}
+
+.bound.white .hexagon .top {
+  border-bottom: 2rem solid white;
+}
+.bound.white .hexagon .bottom {
+  border-top: 2rem solid white;
+}
+.bound.white .hexagon .body {
+  background: white;
+}
+
+.bound.blue .hexagon .top {
+  border-bottom: 2rem solid blue;
+}
+.bound.blue .hexagon .bottom {
+  border-top: 2rem solid blue;
+}
+.bound.blue .hexagon .body {
+  background: blue;
+}
+
+.bound.red .hexagon .top {
+  border-bottom: 2rem solid red;
+}
+.bound.red .hexagon .bottom {
+  border-top: 2rem solid red;
+}
+.bound.red .hexagon .body {
+  background: red;
+}
+
+.bound.black .hexagon .top {
+  border-bottom: 2rem solid black;
+}
+.bound.black .hexagon .bottom {
+  border-top: 2rem solid black;
+}
+.bound.black .hexagon .body {
+  background: black;
+}
+
+.hexagon .body {
+  height: 4rem;
+  width: 6.9282rem;
+  background: black;
+  animation: body-grow 8s both cubic-bezier(0.7, 0, 0.1, 1);
+}
+
+@keyframes bound-wrap-scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bound-scale {
+  0% {
+    transform: scale(0);
+  }
+  10% {
+    transform: scale(0);
+  }
+  18% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes polygon-pattern-translate {
+  0% {
+    transform: translateX(0);
+  }
+  27% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(3000px);
+  }
+  100% {
+    transform: translateX(3000px);
+  }
+}
+
+@keyframes body-grow {
+  0% {
+    height: 6.062rem;
+  }
+  10% {
+    height: 4rem;
+  }
+  20% {
+    height: 4rem;
+  }
+  30% {
+    height: 6.062rem;
+  }
+  100% {
+    height: 6.062rem;
+  }
+}
+
+@keyframes hexagon-top-grow {
+  0% {
+    border-bottom-width: 1.732rem;
+  }
+  10% {
+    border-bottom-width: 2rem;
+  }
+  20% {
+    border-bottom-width: 2rem;
+  }
+  30% {
+    border-bottom-width: 1.732rem;
+  }
+  100% {
+    border-bottom-width: 1.732rem;
+  }
+}
+
+@keyframes hexagon-rotate {
+  0% {
+    transform: rotate(-60deg);
+  }
+  20% {
+    transform: rotate(-60deg);
+  }
+  30% {
+    transform: rotate(-63.4349deg);
+  }
+  100% {
+    transform: rotate(-63.4349deg);
+  }
+}
+
+@keyframes hexagon-bottom-grow {
+  0% {
+    border-top-width: 1.732rem;
+  }
+  10% {
+    border-top-width: 2rem;
+  }
+  20% {
+    border-top-width: 2rem;
+  }
+  30% {
+    border-top-width: 1.732rem;
+  }
+  100% {
+    border-top-width: 1.732rem;
+  }
+}
+
+.hexagon .bottom {
+  border-top: 2rem solid black;
 }
